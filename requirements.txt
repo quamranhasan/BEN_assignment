@@ -7,5 +7,4 @@ ctransformers
 sentence_transformers
 faiss_cpu
 huggingface_hub
-sqlite3
 flask
