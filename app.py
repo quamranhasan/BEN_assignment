@@ -32,12 +32,11 @@ def store_query_response(query, response, latency):
     conn.commit()
     conn.close()
 
-DB_FAISS_PATH = 'vectorstore_2/db_faiss'
+DB_FAISS_PATH = 'vectorstore_500_100/db_faiss'
 
 custom_prompt_template = """Use the following information to answer the questions asked.
-If you don't know the answer, just say that you don't know the answer. 
-Don't try to make up an answer from other sources.
-For the source of your answers, simply tell me the line number and page number of the source document.
+If you don't know the answer, just say that you don't know the answer.
+Keep your answers short and within 50 words.
 
 Context: {context}
 Question: {question}

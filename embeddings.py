@@ -4,7 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter 
 
 DATA_PATH = 'knowledge/'
-DB_FAISS_PATH = 'vectorstore_2/db_faiss'
+DB_FAISS_PATH = 'vectorstore_500_75/db_faiss'
 
 # Create vector database
 def create_vector_db():
@@ -14,7 +14,7 @@ def create_vector_db():
 
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500,
-                                                   chunk_overlap=100)
+                                                   chunk_overlap=75)
     texts = text_splitter.split_documents(documents)
 
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
