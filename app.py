@@ -10,7 +10,9 @@ import sqlite3
 
 app = Flask(__name__)
 
+
 def setup_database():
+    #ALTER THE DATABASE NAME IF NEEDED
     conn = sqlite3.connect('BEN_task_500_100.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS chat_history
@@ -23,6 +25,7 @@ setup_database()
 import json
 
 def store_query_response(query, response, latency):
+    #ALTER THE DATABASE NAME IF NEEDED
     conn = sqlite3.connect('BEN_task_500_100.db')
     c = conn.cursor()
     
@@ -32,6 +35,7 @@ def store_query_response(query, response, latency):
     conn.commit()
     conn.close()
 
+#ALTER THE DATABASE NAME IF NEEDED
 DB_FAISS_PATH = 'vectorstore_500_100/db_faiss'
 
 custom_prompt_template = """Use the following information to answer the questions asked.
@@ -46,9 +50,6 @@ Helpful answer:
 """
 
 def set_custom_prompt():
-    """
-    Prompt template for QA retrieval for each vectorstore
-    """
     prompt = PromptTemplate(template=custom_prompt_template,
                             input_variables=['context', 'question'])
     return prompt
