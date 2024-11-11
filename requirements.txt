@@ -8,3 +8,4 @@ sentence_transformers
 faiss_cpu
 huggingface_hub
 flask
+transformers

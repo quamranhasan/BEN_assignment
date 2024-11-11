@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 def setup_database():
     #ALTER THE DATABASE NAME IF NEEDED
-    conn = sqlite3.connect('BEN_task_500_100.db')
+    conn = sqlite3.connect('500_75.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS chat_history
                  (query TEXT, response TEXT, latency TEXT)''')
@@ -26,7 +26,7 @@ import json
 
 def store_query_response(query, response, latency):
     #ALTER THE DATABASE NAME IF NEEDED
-    conn = sqlite3.connect('BEN_task_500_100.db')
+    conn = sqlite3.connect('500_75.db')
     c = conn.cursor()
     
     response_json = json.dumps(response)
@@ -36,7 +36,7 @@ def store_query_response(query, response, latency):
     conn.close()
 
 #ALTER THE DATABASE NAME IF NEEDED
-DB_FAISS_PATH = 'vectorstore_500_100/db_faiss'
+DB_FAISS_PATH = 'vectorstore_500_75/db_faiss'
 
 custom_prompt_template = """Use the following information to answer the questions asked.
 If you don't know the answer, just say that you don't know the answer.
@@ -76,9 +76,9 @@ def load_llm():
 
 #QA Model Function
 def qa_bot():
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L12-v2",
                                        model_kwargs={'device': 'cpu'})
-    db = FAISS.load_local(DB_FAISS_PATH, embeddings)
+    db = FAISS.load_local(DB_FAISS_PATH, embeddings, allow_dangerous_deserialization=True)
     llm = load_llm()
     qa_prompt = set_custom_prompt()
     qa = retrieval_qa_chain(llm, qa_prompt, db)
